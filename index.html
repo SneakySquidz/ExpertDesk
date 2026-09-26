@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expert Desk</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Expert Desk</h1>
+    <p class="subtitle">Tools, updates and compliance insights for expert missions</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="tools">Tools</button>
+    <button class="tab-btn" data-tab="updates">Updates</button>
+    <button class="tab-btn" data-tab="insights">Insights</button>
+  </nav>
+
+  <main>
+    <!-- ===== TOOLS (open) ===== -->
+    <section id="tools" class="tab-panel active">
+      <h2>Per diem calculator</h2>
+      <p class="hint">
+        Rates below are placeholder samples, not live EU/UN figures — replace <code>PER_DIEM_RATES</code> in
+        <code>app.js</code> with the real rate table you work from.
+      </p>
+      <form id="perdiem-form" class="tool-form">
+        <label>
+          Country
+          <select id="pd-country"></select>
+        </label>
+        <label>
+          Days
+          <input type="number" id="pd-days" min="0" step="0.5" value="1" required />
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="pd-arrival-departure" />
+          First/last day at 50%
+        </label>
+        <button type="submit">Calculate</button>
+      </form>
+      <p id="pd-result" class="result"></p>
+
+      <hr />
+
+      <h2>Day-count calculator</h2>
+      <form id="daycount-form" class="tool-form">
+        <label>
+          Start date
+          <input type="date" id="dc-start" required />
+        </label>
+        <label>
+          End date
+          <input type="date" id="dc-end" required />
+        </label>
+        <button type="submit">Calculate</button>
+      </form>
+      <p id="dc-result" class="result"></p>
+    </section>
+
+    <!-- ===== UPDATES (open) ===== -->
+    <section id="updates" class="tab-panel">
+      <h2>Key facts &amp; compliance news</h2>
+      <p class="hint">Placeholder entries — replace <code>UPDATES</code> in <code>app.js</code> with real items, or wire this to a real feed later.</p>
+      <ul id="updates-list" class="updates-list"></ul>
+    </section>
+
+    <!-- ===== INSIGHTS (gated) ===== -->
+    <section id="insights" class="tab-panel">
+      <div id="insights-locked" class="locked-panel">
+        <h2>Insights &amp; compliance checklist</h2>
+        <p>This section is behind a placeholder lock — not real authentication or payment.</p>
+        <form id="unlock-form" class="tool-form">
+          <label>
+            Passcode
+            <input type="password" id="unlock-code" autocomplete="off" />
+          </label>
+          <button type="submit">Unlock</button>
+        </form>
+        <p id="unlock-error" class="result error"></p>
+      </div>
+
+      <div id="insights-content" class="hidden">
+        <h2>Compliance checklist</h2>
+        <ul id="checklist"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Data stored in this browser only (localStorage) — not synced anywhere yet.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
