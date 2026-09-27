@@ -1,45 +1,34 @@
-// Expert Desk — EU per diem search/browse + day-count calculator.
-// Real data (data.js), live currency conversion, no fake sections.
+// Expert Desk — EU per diem search/browse + simple day counter.
+// Real data throughout: data.js (DG INTPA per diem) + fx-rates.json (InforEuro).
 
 // ---------------------------------------------------------------
-// Currency conversion (live ECB rates via frankfurter.app, EUR base)
+// Currency conversion (InforEuro monthly rates, bundled + auto-refreshed)
 // ---------------------------------------------------------------
-const FX_CACHE_KEY = "expertdesk.fxRates";
-const FX_CACHE_MS = 12 * 60 * 60 * 1000; // 12h
-
 let fxRates = { EUR: 1 };
 let currentCurrency = "EUR";
 
 async function loadFxRates() {
   const note = document.getElementById("fx-note");
   try {
-    const cached = JSON.parse(localStorage.getItem(FX_CACHE_KEY) || "null");
-    if (cached && Date.now() - cached.fetchedAt < FX_CACHE_MS) {
-      fxRates = cached.rates;
-      populateCurrencySelect();
-      note.textContent = `Live rates cached ${new Date(cached.fetchedAt).toLocaleString()}.`;
-      return;
-    }
-
-    const res = await fetch("https://api.frankfurter.app/latest?from=EUR");
-    if (!res.ok) throw new Error(`FX fetch failed: ${res.status}`);
+    const res = await fetch("fx-rates.json", { cache: "no-store" });
+    if (!res.ok) throw new Error(`fx-rates.json fetch failed: ${res.status}`);
     const payload = await res.json();
-    fxRates = { EUR: 1, ...payload.rates };
-    localStorage.setItem(FX_CACHE_KEY, JSON.stringify({ rates: fxRates, fetchedAt: Date.now() }));
-    populateCurrencySelect();
-    note.textContent = `Live ECB reference rates as of ${payload.date}. EUR is the only officially binding figure.`;
+    fxRates = Object.fromEntries(Object.entries(payload.rates).map(([code, r]) => [code, r.value]));
+    populateCurrencySelect(payload.rates);
+    const period = `${payload.year}-${String(payload.month).padStart(2, "0")}`;
+    note.textContent = `InforEuro rates for ${period}. EUR is the only officially binding figure.`;
   } catch (err) {
     fxRates = { EUR: 1 };
-    populateCurrencySelect();
-    note.textContent = "Currency conversion unavailable right now — showing EUR only (the official rate).";
+    populateCurrencySelect({});
+    note.textContent = "Exchange rates unavailable right now — showing EUR only (the official rate).";
   }
 }
 
-function populateCurrencySelect() {
+function populateCurrencySelect(rateDetails) {
   const select = document.getElementById("pd-currency");
   const prior = select.value || "EUR";
   select.innerHTML = "";
-  const codes = ["EUR", ...Object.keys(fxRates).filter((c) => c !== "EUR").sort()];
+  const codes = ["EUR", ...Object.keys(rateDetails).filter((c) => c !== "EUR").sort()];
   codes.forEach((code) => {
     const opt = document.createElement("option");
     opt.value = code;
@@ -62,7 +51,7 @@ function fmtAmount(amount, code) {
 document.getElementById("pd-currency").addEventListener("change", (e) => {
   currentCurrency = e.target.value;
   renderList(document.getElementById("pd-search").value);
-  if (selectedCountry) selectCountry(selectedCountry);
+  updateResult();
 });
 
 // ---------------------------------------------------------------
@@ -96,26 +85,65 @@ function renderList(filterText) {
 function selectCountry(country) {
   selectedCountry = country;
   renderList(document.getElementById("pd-search").value);
-  const rateEur = PER_DIEM_RATES_EUR[country];
-  const converted = fmtAmount(convert(rateEur, currentCurrency), currentCurrency);
-  document.getElementById("pd-selected").textContent =
-    currentCurrency === "EUR"
-      ? `${country} — ${converted}/day`
-      : `${country} — ${converted}/day (official rate: €${rateEur}/day)`;
+  updateResult();
 }
 
 document.getElementById("pd-search").addEventListener("input", (e) => renderList(e.target.value));
 
-document.getElementById("perdiem-form").addEventListener("submit", (e) => {
-  e.preventDefault();
+// ---------------------------------------------------------------
+// Basic day counter (+ / − / typed) with optional adjustments
+// ---------------------------------------------------------------
+const daysInput = document.getElementById("pd-days");
+
+function getDays() {
+  return Math.max(0, parseFloat(daysInput.value) || 0);
+}
+
+function setDays(n) {
+  daysInput.value = Math.max(0, n);
+  updateResult();
+}
+
+document.getElementById("pd-minus").addEventListener("click", () => setDays(getDays() - 1));
+document.getElementById("pd-plus").addEventListener("click", () => setDays(getDays() + 1));
+daysInput.addEventListener("input", updateResult);
+document.getElementById("pd-arrival-departure").addEventListener("change", updateResult);
+
+document.getElementById("dr-apply").addEventListener("click", () => {
+  const start = new Date(document.getElementById("dr-start").value);
+  const end = new Date(document.getElementById("dr-end").value);
   const result = document.getElementById("pd-result");
-  if (!selectedCountry) {
-    result.textContent = "Pick a country from the list above first.";
+  if (isNaN(start) || isNaN(end) || end < start) {
+    result.textContent = "Enter a valid start and end date (end must be on or after start).";
     return;
   }
-  const days = parseFloat(document.getElementById("pd-days").value) || 0;
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const days = Math.round((end - start) / msPerDay) + 1; // inclusive
+  setDays(days);
+});
+
+// ---------------------------------------------------------------
+// Result line — selected country, rate, running total
+// ---------------------------------------------------------------
+function updateResult() {
+  const selected = document.getElementById("pd-selected");
+  const result = document.getElementById("pd-result");
+
+  if (!selectedCountry) {
+    selected.textContent = "Select a country above to start counting.";
+    result.textContent = "";
+    return;
+  }
+
+  const rateEur = PER_DIEM_RATES_EUR[selectedCountry];
+  const rate = convert(rateEur, currentCurrency);
+  selected.textContent =
+    currentCurrency === "EUR"
+      ? `${selectedCountry} — ${fmtAmount(rate, currentCurrency)}/day`
+      : `${selectedCountry} — ${fmtAmount(rate, currentCurrency)}/day (official rate: €${rateEur}/day)`;
+
+  const days = getDays();
   const halfEnds = document.getElementById("pd-arrival-departure").checked;
-  const rate = convert(PER_DIEM_RATES_EUR[selectedCountry], currentCurrency);
 
   let total;
   if (halfEnds && days >= 2) {
@@ -126,27 +154,8 @@ document.getElementById("perdiem-form").addEventListener("submit", (e) => {
     total = rate * days;
   }
 
-  result.textContent = `${selectedCountry}: ${days} day(s) at ${fmtAmount(rate, currentCurrency)}/day → ${fmtAmount(total, currentCurrency)}`;
-});
-
-// ---------------------------------------------------------------
-// Day-count calculator
-// ---------------------------------------------------------------
-document.getElementById("daycount-form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const start = new Date(document.getElementById("dc-start").value);
-  const end = new Date(document.getElementById("dc-end").value);
-  const result = document.getElementById("dc-result");
-
-  if (isNaN(start) || isNaN(end) || end < start) {
-    result.textContent = "Enter a valid start and end date (end must be on or after start).";
-    return;
-  }
-
-  const msPerDay = 1000 * 60 * 60 * 24;
-  const days = Math.round((end - start) / msPerDay) + 1; // inclusive
-  result.textContent = `${days} day(s) inclusive.`;
-});
+  result.textContent = `${days} day(s) → ${fmtAmount(total, currentCurrency)}`;
+}
 
 // ---------------------------------------------------------------
 // Init

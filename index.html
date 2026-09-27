@@ -9,7 +9,7 @@
 <body>
   <header>
     <h1>Expert Desk</h1>
-    <p class="subtitle">EU per diem rates — search, browse, calculate</p>
+    <p class="subtitle">EU per diem rates — search, browse, count</p>
   </header>
 
   <main>
@@ -21,51 +21,57 @@
           <select id="pd-currency"><option value="EUR">EUR</option></select>
         </label>
       </div>
-      <p id="fx-note" class="hint">Loading live currency rates…</p>
+      <p id="fx-note" class="hint">Loading exchange rates…</p>
 
       <div id="pd-list" class="pd-list" role="listbox" aria-label="Countries and per diem rates"></div>
 
       <div class="pd-calc">
-        <p id="pd-selected" class="pd-selected">Select a country above to calculate a total.</p>
-        <form id="perdiem-form" class="tool-form">
-          <label>
-            Days
-            <input type="number" id="pd-days" min="0" step="0.5" value="1" required />
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" id="pd-arrival-departure" />
-            First/last day at 50%
-          </label>
-          <button type="submit">Calculate</button>
-        </form>
+        <p id="pd-selected" class="pd-selected">Select a country above to start counting.</p>
+
+        <div class="counter">
+          <button type="button" id="pd-minus" class="counter-btn" aria-label="Remove a day">–</button>
+          <input type="number" id="pd-days" min="0" step="1" value="1" inputmode="numeric" aria-label="Number of days" />
+          <button type="button" id="pd-plus" class="counter-btn" aria-label="Add a day">+</button>
+          <span class="counter-label">day(s)</span>
+        </div>
+
         <p id="pd-result" class="result"></p>
+
+        <details class="pd-options">
+          <summary>+ Add days from dates, or adjust for travel</summary>
+          <div class="pd-options-body">
+            <label class="checkbox-label">
+              <input type="checkbox" id="pd-arrival-departure" />
+              First/last day at 50%
+            </label>
+
+            <div class="date-range">
+              <label>
+                From
+                <input type="date" id="dr-start" />
+              </label>
+              <label>
+                To
+                <input type="date" id="dr-end" />
+              </label>
+              <button type="button" id="dr-apply">Set day count</button>
+            </div>
+          </div>
+        </details>
       </div>
 
       <p class="source-note">
-        Source: European Commission, DG INTPA — <em>Current per diem rates</em>, Decision C(2024)5405, effective 8 Nov 2024 (PRAG §2.5.5). EUR is the only officially binding figure; other currencies are live conversions for reference only.
+        Per diem: European Commission, DG INTPA — <em>Current per diem rates</em>, Decision C(2024)5405, effective 8 Nov 2024 (PRAG §2.5.5).
         <a href="https://international-partnerships.ec.europa.eu/document/download/167fc5d8-015b-4a51-85b1-266891fbcc21_en?filename=per-diem-rates-20241108_en.pdf" target="_blank" rel="noopener">Official table (PDF) ↗</a>
+        <br />
+        Currency: European Commission — <em>InforEuro</em> monthly accounting rates, refreshed automatically on the 3rd of each month. EUR is the only officially binding figure; other currencies are for reference only.
+        <a href="https://commission.europa.eu/funding-and-tenders/procedures-guidelines-tenders/information-contractors-and-beneficiaries/exchange-rate-inforeuro_en" target="_blank" rel="noopener">InforEuro ↗</a>
       </p>
-    </section>
-
-    <section class="panel">
-      <h2>Day-count calculator</h2>
-      <form id="daycount-form" class="tool-form">
-        <label>
-          Start date
-          <input type="date" id="dc-start" required />
-        </label>
-        <label>
-          End date
-          <input type="date" id="dc-end" required />
-        </label>
-        <button type="submit">Calculate</button>
-      </form>
-      <p id="dc-result" class="result"></p>
     </section>
   </main>
 
   <footer>
-    <p>Per diem table is bundled with the app; only the currency conversion calls out (frankfurter.app, ECB rates). No data is stored or sent anywhere else.</p>
+    <p>Per diem and exchange-rate data are bundled with the app (<code>data.js</code>, <code>fx-rates.json</code>) and refreshed by scheduled jobs. No data is stored or sent anywhere else.</p>
   </footer>
 
   <script src="data.js"></script>

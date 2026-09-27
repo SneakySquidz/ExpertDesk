@@ -210,6 +210,77 @@ button:hover {
   margin: 0 0 0.75rem;
 }
 
+/* --- Day counter --- */
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.counter-btn {
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+  justify-self: unset;
+  flex: none;
+}
+
+.counter input[type="number"] {
+  width: 4.5rem;
+  text-align: center;
+  font-size: 1.1rem;
+  -moz-appearance: textfield;
+}
+
+.counter input[type="number"]::-webkit-inner-spin-button,
+.counter input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.counter-label {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.pd-options {
+  margin-top: 0.75rem;
+}
+
+.pd-options summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+.pd-options-body {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.date-range {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.date-range label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
 .source-note {
   color: var(--text-dim);
   font-size: 0.78rem;

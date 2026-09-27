@@ -1,0 +1,50 @@
+name: Update InforEuro exchange rates
+
+on:
+  schedule:
+    # 3rd of each month, 06:00 UTC — InforEuro publishes early in the month.
+    - cron: "0 6 3 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch current InforEuro monthly rates
+        run: |
+          set -euo pipefail
+          YEAR=$(date -u +%Y)
+          MONTH=$(date -u +%-m)
+          curl -sS --fail \
+            "https://ec.europa.eu/budg/inforeuro/api/public/monthly-rates?year=${YEAR}&month=${MONTH}&lang=en" \
+            -o /tmp/raw.json
+
+          jq -n \
+            --arg year "$YEAR" --arg month "$MONTH" \
+            --arg fetchedAt "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --slurpfile raw /tmp/raw.json '
+            {
+              source: "European Commission — InforEuro monthly accounting rates",
+              url: "https://commission.europa.eu/funding-and-tenders/procedures-guidelines-tenders/information-contractors-and-beneficiaries/exchange-rate-inforeuro_en",
+              year: ($year|tonumber),
+              month: ($month|tonumber),
+              fetchedAt: $fetchedAt,
+              rates: (reduce $raw[0][] as $r ({}; .[$r.isoA3Code] = {value: $r.value, currency: $r.currency, country: $r.country}))
+            }' > fx-rates.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- fx-rates.json; then
+            echo "No change — InforEuro rates already current."
+          else
+            git add fx-rates.json
+            git commit -m "Update InforEuro exchange rates ($(date -u +%Y-%m))"
+            git push
+          fi
