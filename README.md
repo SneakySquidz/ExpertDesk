@@ -18,7 +18,7 @@ Two independent EU reference tools: a per diem lookup/counter, and an exchange r
 
 **Per diem** — European Commission, DG INTPA, "Current per diem rates", Decision C(2024)5405, effective for contracts concluded from **8 November 2024** (PRAG §2.5.5). Bundled in `data.js`. The Commission republishes this table periodically (previous versions: 2020, 2022, 2024) with no fixed schedule — check the [official table (PDF)](https://international-partnerships.ec.europa.eu/document/download/167fc5d8-015b-4a51-85b1-266891fbcc21_en?filename=per-diem-rates-20241108_en.pdf) before relying on it for a live claim, and refresh `data.js` when a new decision is published.
 
-**Exchange rates** — European Commission, [InforEuro](https://commission.europa.eu/funding-and-tenders/procedures-guidelines-tenders/information-contractors-and-beneficiaries/exchange-rate-inforeuro_en) monthly accounting rates, bundled in `fx-rates.json`. This file is **kept current automatically**: `.github/workflows/update-fx-rates.yml` runs on the 3rd of every month (and on manual dispatch), pulls the live rates from the EC's public API (`ec.europa.eu/budg/inforeuro/api/public/monthly-rates`), and commits the update if the figures changed. No client-side network call at runtime — the browser only reads the bundled file, so it works offline too (rates just won't be newer than the last scheduled run).
+**Exchange rates** — European Commission, [InforEuro](https://commission.europa.eu/funding-and-tenders/procedures-guidelines-tenders/information-contractors-and-beneficiaries/exchange-rate-inforeuro_en) monthly accounting rates, bundled in `fx-rates.js` (loaded as a script, like `data.js` — no runtime fetch, so it works offline and from a saved copy). **Kept current automatically:** `.github/workflows/update-fx-rates.yml` runs on the 3rd of every month (and on manual dispatch from the Actions tab), pulls the month's rates from the EC's public API (`ec.europa.eu/budg/inforeuro/api/public/monthly-rates`), refuses to overwrite good data if the API returns an empty or partial list, commits only when the rates actually changed, and then triggers the Pages deploy so the live site picks up the new rates the same day.
 
 ## Removed from the earlier placeholder version
 
@@ -26,7 +26,7 @@ The old "Updates" (fake news feed) and "Insights" (client-side passcode lock, ze
 
 ## Running it
 
-Open `index.html` in a browser, or serve the folder with any static file server. `fx-rates.json` is fetched same-origin — opening `index.html` directly via `file://` will fail that one fetch (falls back to EUR-only); serving the folder (or GitHub Pages) works fully.
+Open `index.html` in a browser, or serve the folder with any static file server. Everything, including exchange rates, works offline and straight from `file://`.
 
 ## Hosting
 

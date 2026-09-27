@@ -143,6 +143,10 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  justify-self: stretch;
+  border-radius: 0;
   background: var(--bg);
   border: none;
   border-bottom: 1px solid var(--border);
@@ -170,6 +174,8 @@ button:hover {
 .pd-rate {
   color: var(--text-dim);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
 }
 
 .pd-row.selected .pd-rate {

@@ -1,5 +1,5 @@
 // Expert Desk — EU per diem search/browse + separate exchange rate converter.
-// Real data throughout: data.js (DG INTPA per diem, EUR) + fx-rates.json (InforEuro).
+// Real data throughout: data.js (DG INTPA per diem, EUR) + fx-rates.js (InforEuro).
 // The two tools are independent: per diem is always EUR (the officially
 // binding figure); exchange rates is its own converter, not mixed in.
 
@@ -105,23 +105,24 @@ renderList("");
 // ---------------------------------------------------------------
 // EXCHANGE RATES: separate search/browse + two-way converter
 // ---------------------------------------------------------------
+// FX_RATES comes from fx-rates.js (loaded before this file), regenerated
+// monthly by .github/workflows/update-fx-rates.yml. Loaded as a script,
+// not fetched, so it works offline, from file://, and with no load race.
 let fxDetails = {}; // code -> { value, currency, country }
 let selectedCurrency = null;
+const DEFAULT_CURRENCY = "USD";
 
-async function loadFxRates() {
+function initFx() {
   const note = document.getElementById("fx-note");
-  try {
-    const res = await fetch("fx-rates.json", { cache: "no-store" });
-    if (!res.ok) throw new Error(`fx-rates.json fetch failed: ${res.status}`);
-    const payload = await res.json();
-    fxDetails = payload.rates;
-    const period = `${payload.year}-${String(payload.month).padStart(2, "0")}`;
-    note.textContent = `InforEuro rates for ${period}. EUR is the only officially binding figure for EU-funded contracts.`;
-  } catch (err) {
-    fxDetails = { EUR: { value: 1, currency: "Euro", country: "—" } };
-    note.textContent = "Exchange rates unavailable right now.";
+  if (typeof FX_RATES === "undefined" || !FX_RATES.rates) {
+    note.textContent = "Exchange rates unavailable — fx-rates.js failed to load.";
+    return;
   }
+  fxDetails = FX_RATES.rates;
+  const period = `${FX_RATES.year}-${String(FX_RATES.month).padStart(2, "0")}`;
+  note.textContent = `InforEuro rates for ${period}. EUR is the only officially binding figure for EU-funded contracts.`;
   renderFxList("");
+  if (fxDetails[DEFAULT_CURRENCY]) selectCurrency(DEFAULT_CURRENCY);
 }
 
 const fxCodes = () => Object.keys(fxDetails).sort((a, b) => a.localeCompare(b));
@@ -153,7 +154,7 @@ function renderFxList(filterText) {
     row.type = "button";
     row.className = "pd-row" + (code === selectedCurrency ? " selected" : "");
     row.setAttribute("role", "option");
-    row.innerHTML = `<span>${code} — ${d.currency}</span><span class="pd-rate">${d.value}</span>`;
+    row.innerHTML = `<span>${code} — ${d.currency}</span><span class="pd-rate">1 EUR = ${d.value} ${code}</span>`;
     row.addEventListener("click", () => selectCurrency(code));
     list.appendChild(row);
   });
@@ -185,4 +186,4 @@ function recomputeFromCur() {
 document.getElementById("fx-eur-amount").addEventListener("input", recomputeFromEur);
 document.getElementById("fx-cur-amount").addEventListener("input", recomputeFromCur);
 
-loadFxRates();
+initFx();
