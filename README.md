@@ -1,19 +1,24 @@
 # Expert Desk
 
-A searchable, browsable EU per diem reference tool with a simple day counter.
+Two independent EU reference tools: a per diem lookup/counter, and an exchange rate converter. They don't mix — per diem is always EUR (the officially binding figure), currency conversion is its own separate panel.
 
 ## What it does
 
-- **Per diem search/browse** — type to filter 194 countries and territories; click one to select it.
-- **Basic day counter** — a plain +/− counter, default 1 day, running total updates live. No forms, no "Calculate" button to hunt for.
-- **Optional adjustments** (collapsed by default, under "+ Add days from dates, or adjust for travel") — set the day count from a start/end date range instead of clicking, and/or apply the standard first/last-day-at-50% rule.
-- **Currency conversion** — EUR is the only officially binding figure; the app also shows any of the 152 currencies InforEuro publishes, converted at the current month's official rate.
+**Per diem**
+- Search/browse — type to filter 194 countries and territories; click one to select it.
+- Basic day counter — a plain +/− counter, default 1 day, running total updates live. No forms, no "Calculate" button to hunt for.
+- Optional adjustments (collapsed by default, under "+ Add days from dates, or adjust for travel") — set the day count from a start/end date range instead of clicking, and/or apply the standard first/last-day-at-50% rule.
+- Always shown in EUR — that's the only officially binding figure for a per diem claim.
+
+**Exchange rates**
+- Search/browse all 152 InforEuro currencies by code, name, or country.
+- Click one, then convert either way: type an EUR amount to see it converted, or type an amount in the selected currency to see its EUR equivalent.
 
 ## Data
 
 **Per diem** — European Commission, DG INTPA, "Current per diem rates", Decision C(2024)5405, effective for contracts concluded from **8 November 2024** (PRAG §2.5.5). Bundled in `data.js`. The Commission republishes this table periodically (previous versions: 2020, 2022, 2024) with no fixed schedule — check the [official table (PDF)](https://international-partnerships.ec.europa.eu/document/download/167fc5d8-015b-4a51-85b1-266891fbcc21_en?filename=per-diem-rates-20241108_en.pdf) before relying on it for a live claim, and refresh `data.js` when a new decision is published.
 
-**Currency** — European Commission, [InforEuro](https://commission.europa.eu/funding-and-tenders/procedures-guidelines-tenders/information-contractors-and-beneficiaries/exchange-rate-inforeuro_en) monthly accounting rates, bundled in `fx-rates.json`. This file is **kept current automatically**: `.github/workflows/update-fx-rates.yml` runs on the 3rd of every month (and on manual dispatch), pulls the live rates from the EC's public API (`ec.europa.eu/budg/inforeuro/api/public/monthly-rates`), and commits the update if the figures changed. No client-side network call at runtime — the browser only reads the bundled file, so it works offline too (rates just won't be newer than the last scheduled run).
+**Exchange rates** — European Commission, [InforEuro](https://commission.europa.eu/funding-and-tenders/procedures-guidelines-tenders/information-contractors-and-beneficiaries/exchange-rate-inforeuro_en) monthly accounting rates, bundled in `fx-rates.json`. This file is **kept current automatically**: `.github/workflows/update-fx-rates.yml` runs on the 3rd of every month (and on manual dispatch), pulls the live rates from the EC's public API (`ec.europa.eu/budg/inforeuro/api/public/monthly-rates`), and commits the update if the figures changed. No client-side network call at runtime — the browser only reads the bundled file, so it works offline too (rates just won't be newer than the last scheduled run).
 
 ## Removed from the earlier placeholder version
 

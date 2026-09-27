@@ -123,30 +123,11 @@ button:hover {
   border-color: var(--danger);
 }
 
-/* --- Per diem search/browse --- */
+/* --- Search/browse (shared by per diem and exchange rates) --- */
 
-.perdiem-toolbar {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.5rem;
-}
-
-.perdiem-toolbar #pd-search {
-  flex: 1 1 220px;
-}
-
-.currency-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--text-dim);
-  white-space: nowrap;
-}
-
-.currency-label select {
-  padding: 0.5rem 0.6rem;
+.pd-search {
+  width: 100%;
+  margin-bottom: 0.75rem;
 }
 
 .pd-list {
@@ -279,6 +260,42 @@ button:hover {
   gap: 0.3rem;
   font-size: 0.85rem;
   color: var(--text-dim);
+}
+
+/* --- Exchange rate converter --- */
+
+.fx-calc {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.fx-amount-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.fx-amount-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.fx-amount-row input {
+  width: 8rem;
+  font-size: 1rem;
+}
+
+.fx-amount-row input:disabled {
+  opacity: 0.5;
+}
+
+.fx-equals {
+  color: var(--text-dim);
+  padding-bottom: 0.6rem;
 }
 
 .source-note {

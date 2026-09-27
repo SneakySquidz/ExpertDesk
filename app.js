@@ -1,64 +1,17 @@
-// Expert Desk — EU per diem search/browse + simple day counter.
-// Real data throughout: data.js (DG INTPA per diem) + fx-rates.json (InforEuro).
+// Expert Desk — EU per diem search/browse + separate exchange rate converter.
+// Real data throughout: data.js (DG INTPA per diem, EUR) + fx-rates.json (InforEuro).
+// The two tools are independent: per diem is always EUR (the officially
+// binding figure); exchange rates is its own converter, not mixed in.
 
 // ---------------------------------------------------------------
-// Currency conversion (InforEuro monthly rates, bundled + auto-refreshed)
-// ---------------------------------------------------------------
-let fxRates = { EUR: 1 };
-let currentCurrency = "EUR";
-
-async function loadFxRates() {
-  const note = document.getElementById("fx-note");
-  try {
-    const res = await fetch("fx-rates.json", { cache: "no-store" });
-    if (!res.ok) throw new Error(`fx-rates.json fetch failed: ${res.status}`);
-    const payload = await res.json();
-    fxRates = Object.fromEntries(Object.entries(payload.rates).map(([code, r]) => [code, r.value]));
-    populateCurrencySelect(payload.rates);
-    const period = `${payload.year}-${String(payload.month).padStart(2, "0")}`;
-    note.textContent = `InforEuro rates for ${period}. EUR is the only officially binding figure.`;
-  } catch (err) {
-    fxRates = { EUR: 1 };
-    populateCurrencySelect({});
-    note.textContent = "Exchange rates unavailable right now — showing EUR only (the official rate).";
-  }
-}
-
-function populateCurrencySelect(rateDetails) {
-  const select = document.getElementById("pd-currency");
-  const prior = select.value || "EUR";
-  select.innerHTML = "";
-  const codes = ["EUR", ...Object.keys(rateDetails).filter((c) => c !== "EUR").sort()];
-  codes.forEach((code) => {
-    const opt = document.createElement("option");
-    opt.value = code;
-    opt.textContent = code;
-    select.appendChild(opt);
-  });
-  select.value = codes.includes(prior) ? prior : "EUR";
-  currentCurrency = select.value;
-}
-
-function convert(eurAmount, code) {
-  const rate = fxRates[code];
-  return rate ? eurAmount * rate : eurAmount;
-}
-
-function fmtAmount(amount, code) {
-  return `${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${code}`;
-}
-
-document.getElementById("pd-currency").addEventListener("change", (e) => {
-  currentCurrency = e.target.value;
-  renderList(document.getElementById("pd-search").value);
-  updateResult();
-});
-
-// ---------------------------------------------------------------
-// Per diem: search / browse
+// PER DIEM: search / browse / count (EUR only)
 // ---------------------------------------------------------------
 const countries = Object.keys(PER_DIEM_RATES_EUR).sort((a, b) => a.localeCompare(b));
 let selectedCountry = null;
+
+function fmtEur(amount) {
+  return `€${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
 
 function renderList(filterText) {
   const list = document.getElementById("pd-list");
@@ -76,7 +29,7 @@ function renderList(filterText) {
     row.type = "button";
     row.className = "pd-row" + (country === selectedCountry ? " selected" : "");
     row.setAttribute("role", "option");
-    row.innerHTML = `<span>${country}</span><span class="pd-rate">${fmtAmount(convert(PER_DIEM_RATES_EUR[country], currentCurrency), currentCurrency)}/day</span>`;
+    row.innerHTML = `<span>${country}</span><span class="pd-rate">${fmtEur(PER_DIEM_RATES_EUR[country])}/day</span>`;
     row.addEventListener("click", () => selectCountry(country));
     list.appendChild(row);
   });
@@ -85,14 +38,11 @@ function renderList(filterText) {
 function selectCountry(country) {
   selectedCountry = country;
   renderList(document.getElementById("pd-search").value);
-  updateResult();
+  updatePdResult();
 }
 
 document.getElementById("pd-search").addEventListener("input", (e) => renderList(e.target.value));
 
-// ---------------------------------------------------------------
-// Basic day counter (+ / − / typed) with optional adjustments
-// ---------------------------------------------------------------
 const daysInput = document.getElementById("pd-days");
 
 function getDays() {
@@ -101,13 +51,13 @@ function getDays() {
 
 function setDays(n) {
   daysInput.value = Math.max(0, n);
-  updateResult();
+  updatePdResult();
 }
 
 document.getElementById("pd-minus").addEventListener("click", () => setDays(getDays() - 1));
 document.getElementById("pd-plus").addEventListener("click", () => setDays(getDays() + 1));
-daysInput.addEventListener("input", updateResult);
-document.getElementById("pd-arrival-departure").addEventListener("change", updateResult);
+daysInput.addEventListener("input", updatePdResult);
+document.getElementById("pd-arrival-departure").addEventListener("change", updatePdResult);
 
 document.getElementById("dr-apply").addEventListener("click", () => {
   const start = new Date(document.getElementById("dr-start").value);
@@ -122,10 +72,7 @@ document.getElementById("dr-apply").addEventListener("click", () => {
   setDays(days);
 });
 
-// ---------------------------------------------------------------
-// Result line — selected country, rate, running total
-// ---------------------------------------------------------------
-function updateResult() {
+function updatePdResult() {
   const selected = document.getElementById("pd-selected");
   const result = document.getElementById("pd-result");
 
@@ -135,12 +82,8 @@ function updateResult() {
     return;
   }
 
-  const rateEur = PER_DIEM_RATES_EUR[selectedCountry];
-  const rate = convert(rateEur, currentCurrency);
-  selected.textContent =
-    currentCurrency === "EUR"
-      ? `${selectedCountry} — ${fmtAmount(rate, currentCurrency)}/day`
-      : `${selectedCountry} — ${fmtAmount(rate, currentCurrency)}/day (official rate: €${rateEur}/day)`;
+  const rate = PER_DIEM_RATES_EUR[selectedCountry];
+  selected.textContent = `${selectedCountry} — ${fmtEur(rate)}/day`;
 
   const days = getDays();
   const halfEnds = document.getElementById("pd-arrival-departure").checked;
@@ -154,11 +97,92 @@ function updateResult() {
     total = rate * days;
   }
 
-  result.textContent = `${days} day(s) → ${fmtAmount(total, currentCurrency)}`;
+  result.textContent = `${days} day(s) → ${fmtEur(total)}`;
 }
 
-// ---------------------------------------------------------------
-// Init
-// ---------------------------------------------------------------
 renderList("");
+
+// ---------------------------------------------------------------
+// EXCHANGE RATES: separate search/browse + two-way converter
+// ---------------------------------------------------------------
+let fxDetails = {}; // code -> { value, currency, country }
+let selectedCurrency = null;
+
+async function loadFxRates() {
+  const note = document.getElementById("fx-note");
+  try {
+    const res = await fetch("fx-rates.json", { cache: "no-store" });
+    if (!res.ok) throw new Error(`fx-rates.json fetch failed: ${res.status}`);
+    const payload = await res.json();
+    fxDetails = payload.rates;
+    const period = `${payload.year}-${String(payload.month).padStart(2, "0")}`;
+    note.textContent = `InforEuro rates for ${period}. EUR is the only officially binding figure for EU-funded contracts.`;
+  } catch (err) {
+    fxDetails = { EUR: { value: 1, currency: "Euro", country: "—" } };
+    note.textContent = "Exchange rates unavailable right now.";
+  }
+  renderFxList("");
+}
+
+const fxCodes = () => Object.keys(fxDetails).sort((a, b) => a.localeCompare(b));
+
+function renderFxList(filterText) {
+  const list = document.getElementById("fx-list");
+  const q = (filterText || "").trim().toLowerCase();
+  const codes = fxCodes();
+  const matches = q
+    ? codes.filter((code) => {
+        const d = fxDetails[code];
+        return (
+          code.toLowerCase().includes(q) ||
+          d.currency.toLowerCase().includes(q) ||
+          d.country.toLowerCase().includes(q)
+        );
+      })
+    : codes;
+
+  list.innerHTML = "";
+  if (!matches.length) {
+    list.innerHTML = `<p class="hint">No currency matches “${filterText}”.</p>`;
+    return;
+  }
+
+  matches.forEach((code) => {
+    const d = fxDetails[code];
+    const row = document.createElement("button");
+    row.type = "button";
+    row.className = "pd-row" + (code === selectedCurrency ? " selected" : "");
+    row.setAttribute("role", "option");
+    row.innerHTML = `<span>${code} — ${d.currency}</span><span class="pd-rate">${d.value}</span>`;
+    row.addEventListener("click", () => selectCurrency(code));
+    list.appendChild(row);
+  });
+}
+
+function selectCurrency(code) {
+  selectedCurrency = code;
+  renderFxList(document.getElementById("fx-search").value);
+  document.getElementById("fx-selected").textContent = `1 EUR = ${fxDetails[code].value} ${code} (${fxDetails[code].currency})`;
+  document.getElementById("fx-cur-label").textContent = code;
+  document.getElementById("fx-cur-amount").disabled = false;
+  recomputeFromEur();
+}
+
+document.getElementById("fx-search").addEventListener("input", (e) => renderFxList(e.target.value));
+
+function recomputeFromEur() {
+  if (!selectedCurrency) return;
+  const eur = parseFloat(document.getElementById("fx-eur-amount").value) || 0;
+  document.getElementById("fx-cur-amount").value = (eur * fxDetails[selectedCurrency].value).toFixed(2);
+}
+
+function recomputeFromCur() {
+  if (!selectedCurrency) return;
+  const cur = parseFloat(document.getElementById("fx-cur-amount").value) || 0;
+  document.getElementById("fx-eur-amount").value = (cur / fxDetails[selectedCurrency].value).toFixed(2);
+}
+
+document.getElementById("fx-eur-amount").addEventListener("input", recomputeFromEur);
+document.getElementById("fx-cur-amount").addEventListener("input", recomputeFromCur);
+
 loadFxRates();

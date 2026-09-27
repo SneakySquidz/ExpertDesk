@@ -9,19 +9,14 @@
 <body>
   <header>
     <h1>Expert Desk</h1>
-    <p class="subtitle">EU per diem rates — search, browse, count</p>
+    <p class="subtitle">EU per diem rates and exchange rates — search, browse, count</p>
   </header>
 
   <main>
+    <!-- ===== PER DIEM (EUR only) ===== -->
     <section class="panel">
-      <div class="perdiem-toolbar">
-        <input type="search" id="pd-search" placeholder="Search country or territory…" autocomplete="off" aria-label="Search country" />
-        <label class="currency-label">
-          Currency
-          <select id="pd-currency"><option value="EUR">EUR</option></select>
-        </label>
-      </div>
-      <p id="fx-note" class="hint">Loading exchange rates…</p>
+      <h2>Per diem</h2>
+      <input type="search" id="pd-search" class="pd-search" placeholder="Search country or territory…" autocomplete="off" aria-label="Search country" />
 
       <div id="pd-list" class="pd-list" role="listbox" aria-label="Countries and per diem rates"></div>
 
@@ -61,10 +56,37 @@
       </div>
 
       <p class="source-note">
-        Per diem: European Commission, DG INTPA — <em>Current per diem rates</em>, Decision C(2024)5405, effective 8 Nov 2024 (PRAG §2.5.5).
+        European Commission, DG INTPA — <em>Current per diem rates</em>, Decision C(2024)5405, effective 8 Nov 2024 (PRAG §2.5.5). EUR is the only officially binding figure.
         <a href="https://international-partnerships.ec.europa.eu/document/download/167fc5d8-015b-4a51-85b1-266891fbcc21_en?filename=per-diem-rates-20241108_en.pdf" target="_blank" rel="noopener">Official table (PDF) ↗</a>
-        <br />
-        Currency: European Commission — <em>InforEuro</em> monthly accounting rates, refreshed automatically on the 3rd of each month. EUR is the only officially binding figure; other currencies are for reference only.
+      </p>
+    </section>
+
+    <!-- ===== EXCHANGE RATES (separate tool) ===== -->
+    <section class="panel">
+      <h2>Exchange rates</h2>
+      <p id="fx-note" class="hint">Loading exchange rates…</p>
+
+      <input type="search" id="fx-search" class="pd-search" placeholder="Search currency or country…" autocomplete="off" aria-label="Search currency" />
+
+      <div id="fx-list" class="pd-list" role="listbox" aria-label="Currencies and exchange rates"></div>
+
+      <div class="fx-calc">
+        <p id="fx-selected" class="pd-selected">Select a currency above to convert.</p>
+        <div class="fx-amount-row">
+          <label>
+            EUR
+            <input type="number" id="fx-eur-amount" min="0" step="any" value="1" inputmode="decimal" />
+          </label>
+          <span class="fx-equals">=</span>
+          <label>
+            <span id="fx-cur-label">—</span>
+            <input type="number" id="fx-cur-amount" min="0" step="any" inputmode="decimal" disabled />
+          </label>
+        </div>
+      </div>
+
+      <p class="source-note">
+        European Commission — <em>InforEuro</em> monthly accounting rates, refreshed automatically on the 3rd of each month. EUR is the only officially binding figure for EU-funded contracts; conversions here are for reference only.
         <a href="https://commission.europa.eu/funding-and-tenders/procedures-guidelines-tenders/information-contractors-and-beneficiaries/exchange-rate-inforeuro_en" target="_blank" rel="noopener">InforEuro ↗</a>
       </p>
     </section>
