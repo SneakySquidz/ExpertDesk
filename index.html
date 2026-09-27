@@ -9,42 +9,45 @@
 <body>
   <header>
     <h1>Expert Desk</h1>
-    <p class="subtitle">Tools, updates and compliance insights for expert missions</p>
+    <p class="subtitle">EU per diem rates — search, browse, calculate</p>
   </header>
 
-  <nav class="tabs">
-    <button class="tab-btn active" data-tab="tools">Tools</button>
-    <button class="tab-btn" data-tab="updates">Updates</button>
-    <button class="tab-btn" data-tab="insights">Insights</button>
-  </nav>
-
   <main>
-    <!-- ===== TOOLS (open) ===== -->
-    <section id="tools" class="tab-panel active">
-      <h2>Per diem calculator</h2>
-      <p class="hint">
-        Rates below are placeholder samples, not live EU/UN figures — replace <code>PER_DIEM_RATES</code> in
-        <code>app.js</code> with the real rate table you work from.
+    <section class="panel">
+      <div class="perdiem-toolbar">
+        <input type="search" id="pd-search" placeholder="Search country or territory…" autocomplete="off" aria-label="Search country" />
+        <label class="currency-label">
+          Currency
+          <select id="pd-currency"><option value="EUR">EUR</option></select>
+        </label>
+      </div>
+      <p id="fx-note" class="hint">Loading live currency rates…</p>
+
+      <div id="pd-list" class="pd-list" role="listbox" aria-label="Countries and per diem rates"></div>
+
+      <div class="pd-calc">
+        <p id="pd-selected" class="pd-selected">Select a country above to calculate a total.</p>
+        <form id="perdiem-form" class="tool-form">
+          <label>
+            Days
+            <input type="number" id="pd-days" min="0" step="0.5" value="1" required />
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="pd-arrival-departure" />
+            First/last day at 50%
+          </label>
+          <button type="submit">Calculate</button>
+        </form>
+        <p id="pd-result" class="result"></p>
+      </div>
+
+      <p class="source-note">
+        Source: European Commission, DG INTPA — <em>Current per diem rates</em>, Decision C(2024)5405, effective 8 Nov 2024 (PRAG §2.5.5). EUR is the only officially binding figure; other currencies are live conversions for reference only.
+        <a href="https://international-partnerships.ec.europa.eu/document/download/167fc5d8-015b-4a51-85b1-266891fbcc21_en?filename=per-diem-rates-20241108_en.pdf" target="_blank" rel="noopener">Official table (PDF) ↗</a>
       </p>
-      <form id="perdiem-form" class="tool-form">
-        <label>
-          Country
-          <select id="pd-country"></select>
-        </label>
-        <label>
-          Days
-          <input type="number" id="pd-days" min="0" step="0.5" value="1" required />
-        </label>
-        <label class="checkbox-label">
-          <input type="checkbox" id="pd-arrival-departure" />
-          First/last day at 50%
-        </label>
-        <button type="submit">Calculate</button>
-      </form>
-      <p id="pd-result" class="result"></p>
+    </section>
 
-      <hr />
-
+    <section class="panel">
       <h2>Day-count calculator</h2>
       <form id="daycount-form" class="tool-form">
         <label>
@@ -59,40 +62,13 @@
       </form>
       <p id="dc-result" class="result"></p>
     </section>
-
-    <!-- ===== UPDATES (open) ===== -->
-    <section id="updates" class="tab-panel">
-      <h2>Key facts &amp; compliance news</h2>
-      <p class="hint">Placeholder entries — replace <code>UPDATES</code> in <code>app.js</code> with real items, or wire this to a real feed later.</p>
-      <ul id="updates-list" class="updates-list"></ul>
-    </section>
-
-    <!-- ===== INSIGHTS (gated) ===== -->
-    <section id="insights" class="tab-panel">
-      <div id="insights-locked" class="locked-panel">
-        <h2>Insights &amp; compliance checklist</h2>
-        <p>This section is behind a placeholder lock — not real authentication or payment.</p>
-        <form id="unlock-form" class="tool-form">
-          <label>
-            Passcode
-            <input type="password" id="unlock-code" autocomplete="off" />
-          </label>
-          <button type="submit">Unlock</button>
-        </form>
-        <p id="unlock-error" class="result error"></p>
-      </div>
-
-      <div id="insights-content" class="hidden">
-        <h2>Compliance checklist</h2>
-        <ul id="checklist"></ul>
-      </div>
-    </section>
   </main>
 
   <footer>
-    <p>Data stored in this browser only (localStorage) — not synced anywhere yet.</p>
+    <p>Per diem table is bundled with the app; only the currency conversion calls out (frankfurter.app, ECB rates). No data is stored or sent anywhere else.</p>
   </footer>
 
+  <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
