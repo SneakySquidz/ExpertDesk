@@ -4,8 +4,8 @@ const FX_RATES = {
   "source": "European Commission — InforEuro monthly accounting rates",
   "url": "https://commission.europa.eu/funding-and-tenders/procedures-guidelines-tenders/information-contractors-and-beneficiaries/exchange-rate-inforeuro_en",
   "year": 2026,
-  "month": 10,
-  "fetchedAt": "2026-10-03T11:26:19Z",
+  "month": 11,
+  "fetchedAt": "2026-11-03T13:56:15Z",
   "rates": {
     "EUR": {
       "value": 1,
@@ -13,237 +13,237 @@ const FX_RATES = {
       "country": "Belgium"
     },
     "CZK": {
-      "value": 24.411,
+      "value": 24.336,
       "currency": "Czech koruna",
       "country": "Czechia"
     },
     "DKK": {
-      "value": 7.4754,
+      "value": 7.4736,
       "currency": "Danish krone",
       "country": "Denmark"
     },
     "HUF": {
-      "value": 366.38,
+      "value": 365.95,
       "currency": "Hungarian forint",
       "country": "Hungary"
     },
     "PLN": {
-      "value": 4.3653,
+      "value": 4.3938,
       "currency": "Polish zloty",
       "country": "Poland"
     },
     "RON": {
-      "value": 5.2786,
+      "value": 5.3441,
       "currency": "Romanian Leu",
       "country": "Romania"
     },
     "SEK": {
-      "value": 11.321,
+      "value": 10.9995,
       "currency": "Swedish krona",
       "country": "Sweden"
     },
     "AUD": {
-      "value": 1.6211,
+      "value": 1.5842,
       "currency": "Australian dollar",
       "country": "Australia"
     },
     "BRL": {
-      "value": 5.9177,
+      "value": 5.9563,
       "currency": "Brazilian real",
       "country": "Brazil"
     },
     "CAD": {
-      "value": 1.6101,
+      "value": 1.5577,
       "currency": "Canadian dollar",
       "country": "Canada"
     },
     "CNY": {
-      "value": 7.6117,
+      "value": 7.4144,
       "currency": "Chinese Yuan Renminbi",
       "country": "China"
     },
     "HKD": {
-      "value": 8.9091,
+      "value": 8.733,
       "currency": "Hong Kong dollar",
       "country": "Hong Kong"
     },
     "ISK": {
-      "value": 136.8,
+      "value": 135.8,
       "currency": "Iceland króna",
       "country": "Iceland"
     },
     "INR": {
-      "value": 108.991,
+      "value": 106.0345,
       "currency": "Indian rupee",
       "country": "India"
     },
     "IDR": {
-      "value": 20350.09,
+      "value": 20193.16,
       "currency": "Indonesian rupiah",
       "country": "Indonesia"
     },
     "ILS": {
-      "value": 3.4702,
+      "value": 3.468,
       "currency": "New Israeli shekel",
       "country": "Israel"
     },
     "JPY": {
-      "value": 178.41,
+      "value": 175.92,
       "currency": "Japanese yen",
       "country": "Japan"
     },
     "MYR": {
-      "value": 4.634,
+      "value": 4.5182,
       "currency": "Malaysian ringgit",
       "country": "Malaysia"
     },
     "MXN": {
-      "value": 20.3222,
+      "value": 20.8661,
       "currency": "Mexican peso",
       "country": "Mexico"
     },
     "NZD": {
-      "value": 2.0076,
+      "value": 1.9817,
       "currency": "New Zealand dollar",
       "country": "New Zealand"
     },
     "NOK": {
-      "value": 10.8735,
+      "value": 10.3315,
       "currency": "Norwegian krone",
       "country": "Norway"
     },
     "PHP": {
-      "value": 71.022,
+      "value": 71.052,
       "currency": "Philippine piso",
       "country": "Philippines"
     },
     "RUB": {
-      "value": 96.2499,
+      "value": 90.166,
       "currency": "Russian ruble",
       "country": "Russia"
     },
     "SGD": {
-      "value": 1.4504,
+      "value": 1.4265,
       "currency": "Singapore dollar",
       "country": "Singapore"
     },
     "ZAR": {
-      "value": 18.5887,
+      "value": 18.5218,
       "currency": "South African rand",
       "country": "South Africa"
     },
     "KRW": {
-      "value": 1536.74,
+      "value": 1488.4,
       "currency": "South Korean won",
       "country": "South Korea"
     },
     "CHF": {
-      "value": 0.9461,
+      "value": 0.9222,
       "currency": "Swiss franc",
       "country": "Switzerland"
     },
     "THB": {
-      "value": 38.056,
+      "value": 37.569,
       "currency": "Thai baht",
       "country": "Thailand"
     },
     "TRY": {
-      "value": 55.6398,
+      "value": 55.4691,
       "currency": "Turkish lira",
       "country": "Turkey"
     },
     "GBP": {
-      "value": 0.85718,
+      "value": 0.83578,
       "currency": "Pound sterling",
       "country": "United Kingdom"
     },
     "USD": {
-      "value": 1.1355,
+      "value": 1.113,
       "currency": "United States dollar",
       "country": "United States"
     },
     "AFN": {
-      "value": 74,
+      "value": 72.535,
       "currency": "Afghan afghani",
       "country": "Afghanistan"
     },
     "ALL": {
-      "value": 92.045,
+      "value": 90.85,
       "currency": "Albanian lek",
       "country": "Albania"
     },
     "DZD": {
-      "value": 152.1975,
+      "value": 150.8035,
       "currency": "Algerian dinar",
       "country": "Algeria"
     },
     "AOA": {
-      "value": 1045.79,
+      "value": 1025.835,
       "currency": "Angolan kwanza",
       "country": "Angola"
     },
     "ARS": {
-      "value": 1731.6375,
+      "value": 1715.96775,
       "currency": "Argentine peso",
       "country": "Argentina"
     },
     "AMD": {
-      "value": 413.5,
+      "value": 398.7,
       "currency": "Armenian dram",
       "country": "Armenia"
     },
     "AWG": {
-      "value": 2.05526,
+      "value": 2.01453,
       "currency": "Aruban florin",
       "country": "Aruba"
     },
     "AZN": {
-      "value": 1.93035,
+      "value": 1.8921,
       "currency": "Azerbaijan Manat",
       "country": "Azerbaijan"
     },
     "BSD": {
-      "value": 1.1355,
+      "value": 1.113,
       "currency": "Bahamian dollar",
       "country": "Bahamas (the)"
     },
     "BHD": {
-      "value": 0.42806,
+      "value": 0.41999,
       "currency": "Bahraini dinar",
       "country": "Bahrain"
     },
     "BDT": {
-      "value": 139.80844,
+      "value": 138.2346,
       "currency": "Bangladeshi taka",
       "country": "Bangladesh"
     },
     "BBD": {
-      "value": 2.28701,
+      "value": 2.24169,
       "currency": "Barbados dollar",
       "country": "Barbados"
     },
     "BYN": {
-      "value": 3.4404,
+      "value": 3.28295,
       "currency": "Belarussian rouble",
       "country": "Belarus"
     },
     "BZD": {
-      "value": 2.28372,
+      "value": 2.23847,
       "currency": "Belize dollar",
       "country": "Belize"
     },
     "BMD": {
-      "value": 1.1355,
+      "value": 1.113,
       "currency": "Bermudian dollar",
       "country": "Bermuda"
     },
     "BTN": {
-      "value": 108.991,
+      "value": 106.0345,
       "currency": "Bhutanese ngultrum",
       "country": "Bhutan"
     },
     "BOB": {
-      "value": 13.68845,
+      "value": 13.35044,
       "currency": "Bolivian boliviano",
       "country": "Bolivia"
     },
@@ -253,22 +253,22 @@ const FX_RATES = {
       "country": "Bosnia and Herzegovina"
     },
     "BWP": {
-      "value": 15.49175,
+      "value": 15.37409,
       "currency": "Botswana pula",
       "country": "Botswana"
     },
     "BND": {
-      "value": 1.45225,
+      "value": 1.4292,
       "currency": "Brunei dollar",
       "country": "Brunei"
     },
     "BIF": {
-      "value": 3407.3895,
+      "value": 3346.872,
       "currency": "Burundi franc",
       "country": "Burundi"
     },
     "KHR": {
-      "value": 4643,
+      "value": 4578.5,
       "currency": "Cambodian riel",
       "country": "Cambodia"
     },
@@ -278,17 +278,17 @@ const FX_RATES = {
       "country": "Cape Verde"
     },
     "KYD": {
-      "value": 0.94247,
+      "value": 0.92379,
       "currency": "Cayman Islands dollar",
       "country": "Cayman Islands"
     },
     "CLP": {
-      "value": 1099.58414,
+      "value": 1099.46036,
       "currency": "Chilean peso",
       "country": "Chile"
     },
     "COP": {
-      "value": 3827.7705,
+      "value": 3518.71611,
       "currency": "Colombian peso",
       "country": "Colombia"
     },
@@ -298,237 +298,237 @@ const FX_RATES = {
       "country": "Comoros"
     },
     "CDF": {
-      "value": 2628.405,
+      "value": 2581.595,
       "currency": "Congolese franc",
       "country": "Congo (Democratic Republic of)"
     },
     "CRC": {
-      "value": 517.35651,
+      "value": 506.12006,
       "currency": "Costa Rican colón",
       "country": "Costa Rica"
     },
     "CUP": {
-      "value": 27.2904,
+      "value": 26.7696,
       "currency": "Cuban peso",
       "country": "Cuba"
     },
     "XCG": {
-      "value": 2.03255,
+      "value": 1.99227,
       "currency": "Caribbean Guilder",
       "country": "Curaçao"
     },
     "DJF": {
-      "value": 202.20416,
+      "value": 198.19748,
       "currency": "Djibouti franc",
       "country": "Djibouti"
     },
     "DOP": {
-      "value": 67.6234,
+      "value": 67.281,
       "currency": "Dominican peso",
       "country": "Dominican Republic"
     },
     "EGP": {
-      "value": 59.24292,
+      "value": 62.48472,
       "currency": "Egyptian pound",
       "country": "Egypt"
     },
     "ERN": {
-      "value": 17.11766,
+      "value": 16.77848,
       "currency": "Eritrean nakfa",
       "country": "Eritrea"
     },
     "SZL": {
-      "value": 18.5887,
+      "value": 18.5218,
       "currency": "Swazi lilangeni",
       "country": "Eswatini"
     },
     "ETB": {
-      "value": 184.034,
+      "value": 180.133,
       "currency": "Ethiopian birr",
       "country": "Ethiopia"
     },
     "FKP": {
-      "value": 0.85718,
+      "value": 0.83578,
       "currency": "Falkland Islands pound",
       "country": "Falkland Islands"
     },
     "FJD": {
-      "value": 2.5441,
+      "value": 2.49895,
       "currency": "Fiji dollar",
       "country": "Fiji"
     },
     "GMD": {
-      "value": 84.745,
+      "value": 83.265,
       "currency": "Gambian dalasi",
       "country": "Gambia (the)"
     },
     "GEL": {
-      "value": 2.9637,
+      "value": 2.8908,
       "currency": "Georgian lari",
       "country": "Georgia"
     },
     "GHS": {
-      "value": 13.2472,
+      "value": 12.98325,
       "currency": "Ghana cedi",
       "country": "Ghana"
     },
     "GIP": {
-      "value": 0.85718,
+      "value": 0.83578,
       "currency": "Gibraltar pound",
       "country": "Gibraltar"
     },
     "GTQ": {
-      "value": 8.66954,
+      "value": 8.50889,
       "currency": "Guatemalan quetzal",
       "country": "Guatemala"
     },
     "GNF": {
-      "value": 10000.795,
+      "value": 9872.415,
       "currency": "Guinean franc",
       "country": "Guinea"
     },
     "GYD": {
-      "value": 237.925,
+      "value": 233.8,
       "currency": "Guyana dollar",
       "country": "Guyana"
     },
     "HTG": {
-      "value": 148.60856,
+      "value": 145.9143,
       "currency": "Haitian gourde",
       "country": "Haiti"
     },
     "HNL": {
-      "value": 30.48233,
+      "value": 29.87993,
       "currency": "Honduran lempira",
       "country": "Honduras"
     },
     "IRR": {
-      "value": 1560858.3,
+      "value": 2075355.45,
       "currency": "Iranian rial",
       "country": "Iran"
     },
     "IQD": {
-      "value": 1487.505,
+      "value": 1458.03,
       "currency": "Iraqi dinar",
       "country": "Iraq"
     },
     "JMD": {
-      "value": 180.0144,
+      "value": 177.08105,
       "currency": "Jamaican dollar",
       "country": "Jamaica"
     },
     "JOD": {
-      "value": 0.80507,
+      "value": 0.78912,
       "currency": "Jordanian dinar",
       "country": "Jordan"
     },
     "KZT": {
-      "value": 501.655,
+      "value": 508.29,
       "currency": "Kazakhstani tenge",
       "country": "Kazakhstan"
     },
     "KES": {
-      "value": 147.54,
+      "value": 145,
       "currency": "Kenyan shilling",
       "country": "Kenya"
     },
     "KWD": {
-      "value": 0.34939,
+      "value": 0.34319,
       "currency": "Kuwaiti dinar",
       "country": "Kuwait"
     },
     "KGS": {
-      "value": 99.32826,
+      "value": 97.36118,
       "currency": "Kyrgyzstani som",
       "country": "Kyrgyzstan"
     },
     "LAK": {
-      "value": 25513.69,
+      "value": 25138.35,
       "currency": "Lao kip",
       "country": "Laos"
     },
     "LBP": {
-      "value": 101684.025,
+      "value": 99669.15,
       "currency": "Lebanese pound",
       "country": "Lebanon"
     },
     "LSL": {
-      "value": 18.5887,
+      "value": 18.5218,
       "currency": "Lesotho loti",
       "country": "Lesotho"
     },
     "LRD": {
-      "value": 194.73825,
+      "value": 189.21,
       "currency": "Liberian dollar",
       "country": "Liberia"
     },
     "LYD": {
-      "value": 7.2708,
+      "value": 7.1751,
       "currency": "Libyan dinar",
       "country": "Libya"
     },
     "MOP": {
-      "value": 9.18052,
+      "value": 8.99861,
       "currency": "Macanese pataca",
       "country": "Macau"
     },
     "MGA": {
-      "value": 4989.5,
+      "value": 5125,
       "currency": "Malagasy ariary",
       "country": "Madagascar"
     },
     "MWK": {
-      "value": 1971.74445,
+      "value": 1933.73885,
       "currency": "Malawi kwacha",
       "country": "Malawi"
     },
     "MVR": {
-      "value": 17.55483,
+      "value": 17.20698,
       "currency": "Maldivian rufiyaa",
       "country": "Maldives"
     },
     "MRU": {
-      "value": 45.7229,
+      "value": 45.05695,
       "currency": "Mauritanian ouguiya",
       "country": "Mauritania"
     },
     "MUR": {
-      "value": 53.975,
+      "value": 53.05,
       "currency": "Mauritian rupee",
       "country": "Mauritius"
     },
     "MDL": {
-      "value": 20.16,
+      "value": 20.06,
       "currency": "Moldovan leu",
       "country": "Moldova"
     },
     "MNT": {
-      "value": 4085.529,
+      "value": 4009.026,
       "currency": "Mongolian Tugrik",
       "country": "Mongolia"
     },
     "MAD": {
-      "value": 10.97075,
+      "value": 10.98365,
       "currency": "Moroccan dirham",
       "country": "Morocco"
     },
     "MZN": {
-      "value": 72.305,
+      "value": 70.94,
       "currency": "Mozambique Metical",
       "country": "Mozambique"
     },
     "MMK": {
-      "value": 4524.9675,
+      "value": 4435.305,
       "currency": "Myanmar Kyat",
       "country": "Myanmar"
     },
     "NAD": {
-      "value": 18.5887,
+      "value": 18.5218,
       "currency": "Namibian dollar",
       "country": "Namibia"
     },
     "NPR": {
-      "value": 174.63015,
+      "value": 169.94235,
       "currency": "Nepalese rupee",
       "country": "Nepal"
     },
@@ -538,67 +538,67 @@ const FX_RATES = {
       "country": "New Caledonia"
     },
     "NIO": {
-      "value": 41.7864,
+      "value": 40.9584,
       "currency": "Nicaraguan córdoba",
       "country": "Nicaragua"
     },
     "NGN": {
-      "value": 1528.15,
+      "value": 1528.55,
       "currency": "Nigerian naira",
       "country": "Nigeria"
     },
     "MKD": {
-      "value": 61.61,
+      "value": 61.66,
       "currency": "Macedonian denar",
       "country": "North Macedonia"
     },
     "OMR": {
-      "value": 0.43717,
+      "value": 0.42852,
       "currency": "Omani rial",
       "country": "Oman"
     },
     "PKR": {
-      "value": 315.062,
+      "value": 308.509,
       "currency": "Pakistan rupee",
       "country": "Pakistan"
     },
     "PAB": {
-      "value": 1.1355,
+      "value": 1.113,
       "currency": "Panamanian balboa",
       "country": "Panama"
     },
     "PGK": {
-      "value": 5.0534,
+      "value": 4.98433,
       "currency": "Papua New Guinean kina",
       "country": "Papua New Guinea"
     },
     "PYG": {
-      "value": 6669.35925,
+      "value": 6520.5105,
       "currency": "Paraguayan guaraní",
       "country": "Paraguay"
     },
     "PEN": {
-      "value": 3.90618,
+      "value": 3.83785,
       "currency": "Peruvian sol",
       "country": "Peru"
     },
     "QAR": {
-      "value": 4.13322,
+      "value": 4.05132,
       "currency": "Qatari riyal",
       "country": "Qatar"
     },
     "RWF": {
-      "value": 1675.645,
+      "value": 1646.565,
       "currency": "Rwandan franc",
       "country": "Rwanda"
     },
     "SHP": {
-      "value": 0.85718,
+      "value": 0.83578,
       "currency": "Saint Helena pound",
       "country": "Saint Helena"
     },
     "WST": {
-      "value": 3.13069,
+      "value": 3.0535,
       "currency": "Samoan tala",
       "country": "Samoa"
     },
@@ -608,152 +608,152 @@ const FX_RATES = {
       "country": "Sao Tome and Príncipe"
     },
     "SAR": {
-      "value": 4.26289,
+      "value": 4.1767,
       "currency": "Saudi riyal",
       "country": "Saudi Arabia"
     },
     "RSD": {
-      "value": 117.375,
+      "value": 117.52,
       "currency": "Serbian Dinar",
       "country": "Serbia (Republic of)"
     },
     "SCR": {
-      "value": 15.90745,
+      "value": 16.61,
       "currency": "Seychellois rupee",
       "country": "Seychelles"
     },
     "SLE": {
-      "value": 27.6928,
+      "value": 25.21924,
       "currency": "Sierra Leonean leone",
       "country": "Sierra Leone"
     },
     "SBD": {
-      "value": 9.1668,
+      "value": 8.87543,
       "currency": "Solomon Islands dollar",
       "country": "Solomon Islands"
     },
     "SOS": {
-      "value": 649.855,
+      "value": 637.45,
       "currency": "Somali shilling",
       "country": "Somalia"
     },
     "SSP": {
-      "value": 6552.67879,
+      "value": 6429.96706,
       "currency": "South Sudanese pound",
       "country": "South Sudan"
     },
     "LKR": {
-      "value": 376.38,
+      "value": 370.8705,
       "currency": "Sri Lankan rupee",
       "country": "Sri Lanka"
     },
     "SDG": {
-      "value": 5784.9421,
+      "value": 7394.6614,
       "currency": "Sudanese Pound",
       "country": "Sudan"
     },
     "SRD": {
-      "value": 42.82538,
+      "value": 41.95676,
       "currency": "Surinam dollar",
       "country": "Suriname"
     },
     "SYP": {
-      "value": 139.4,
+      "value": 136,
       "currency": "Syrian pound",
       "country": "Syria"
     },
     "TWD": {
-      "value": 36.14615,
+      "value": 36.1256,
       "currency": "New Taiwan dollar",
       "country": "Taiwan"
     },
     "TJS": {
-      "value": 10.47499,
+      "value": 10.26743,
       "currency": "Tajikistani somoni",
       "country": "Tajikistan"
     },
     "TZS": {
-      "value": 2996.265,
+      "value": 2950.24,
       "currency": "Tanzanian shilling",
       "country": "Tanzania"
     },
     "TOP": {
-      "value": 2.725,
+      "value": 2.66,
       "currency": "Tongan paʻanga",
       "country": "Tonga"
     },
     "TTD": {
-      "value": 7.71385,
+      "value": 7.57095,
       "currency": "Trinidad and Tobago dollar",
       "country": "Trinidad and Tobago"
     },
     "TND": {
-      "value": 3.37965,
+      "value": 3.36405,
       "currency": "Tunisian dinar",
       "country": "Tunisia"
     },
     "TMT": {
-      "value": 3.97425,
+      "value": 3.8955,
       "currency": "Turkmenistan manat",
       "country": "Turkmenistan"
     },
     "UGX": {
-      "value": 4452,
+      "value": 4891,
       "currency": "Ugandan shilling",
       "country": "Uganda"
     },
     "UAH": {
-      "value": 51.01115,
+      "value": 50.69565,
       "currency": "Ukrainian hryvnia",
       "country": "Ukraine"
     },
     "AED": {
-      "value": 4.17655,
+      "value": 4.09675,
       "currency": "United Arab Emirates dirham",
       "country": "United Arab Emirates"
     },
     "UYU": {
-      "value": 45.5222,
+      "value": 44.77043,
       "currency": "Uruguayan peso",
       "country": "Uruguay"
     },
     "UZS": {
-      "value": 13406.81444,
+      "value": 13349.322,
       "currency": "Uzbekistan sum",
       "country": "Uzbekistan"
     },
     "VUV": {
-      "value": 133.875,
+      "value": 130.78,
       "currency": "Vanuatu vatu",
       "country": "Vanuatu"
     },
     "VES": {
-      "value": 972.91371,
+      "value": 988.0989,
       "currency": "Venezuelan bolivar soberano",
       "country": "Venezuela"
     },
     "VND": {
-      "value": 29494.04475,
+      "value": 28778.2845,
       "currency": "Vietnamese dong",
       "country": "Vietnam"
     },
     "YER": {
-      "value": 605.78925,
+      "value": 593.7855,
       "currency": "Yemeni rial",
       "country": "Yemen"
     },
     "ZMW": {
-      "value": 22.2019,
+      "value": 22.7654,
       "currency": "Zambian Kwacha",
       "country": "Zambia"
     },
     "ZIG": {
-      "value": 30.48954,
+      "value": 29.6117,
       "currency": "Zimbabwean gold",
       "country": "Zimbabwe"
     },
     "XCD": {
-      "value": 3.07721,
+      "value": 3.01623,
       "currency": "East Caribbean dollar",
       "country": "Antigua and Barbuda"
     },
