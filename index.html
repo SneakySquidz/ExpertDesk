@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Expert Desk</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>€</text></svg>" />
-  <link rel="stylesheet" href="style.css?v=20260927c" />
+  <link rel="stylesheet" href="style.css?v=20261106a" />
 </head>
 <body>
   <header>
     <h1>Expert Desk</h1>
     <p class="subtitle">EU per diem rates and exchange rates — search, browse, count</p>
+    <p id="last-refreshed" class="badge" hidden></p>
   </header>
 
   <main>
@@ -58,6 +59,7 @@
 
       <p class="source-note">
         European Commission, DG INTPA — <em>Current per diem rates</em>, Decision C(2024)5405, effective 8 Nov 2024 (PRAG §2.5.5). EUR is the only officially binding figure.
+        <a href="https://international-partnerships.ec.europa.eu/funding-and-technical-assistance/guidelines/managing-intervention/diem-rates_en" target="_blank" rel="noopener">Official per diem rates page, European Commission (DG INTPA) ↗</a> ·
         <a href="https://international-partnerships.ec.europa.eu/document/download/167fc5d8-015b-4a51-85b1-266891fbcc21_en?filename=per-diem-rates-20241108_en.pdf" target="_blank" rel="noopener">Official table (PDF) ↗</a>
       </p>
     </section>
@@ -97,8 +99,8 @@
     <p>Per diem and exchange-rate data are bundled with the app (<code>data.js</code>, <code>fx-rates.js</code>) and refreshed by scheduled jobs. No data is stored or sent anywhere else.</p>
   </footer>
 
-  <script src="data.js?v=20260927c"></script>
-  <script src="fx-rates.js?v=20260927c"></script>
-  <script src="app.js?v=20260927c"></script>
+  <script src="data.js?v=20261106a"></script>
+  <script src="fx-rates.js?v=20261106a"></script>
+  <script src="app.js?v=20261106a"></script>
 </body>
 </html>

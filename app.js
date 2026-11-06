@@ -121,6 +121,11 @@ function initFx() {
   fxDetails = FX_RATES.rates;
   const period = `${FX_RATES.year}-${String(FX_RATES.month).padStart(2, "0")}`;
   note.textContent = `InforEuro rates for ${period}. EUR is the only officially binding figure for EU-funded contracts.`;
+  const badge = document.getElementById("last-refreshed");
+  if (badge && FX_RATES.fetchedAt) {
+    badge.textContent = `Exchange rates last refreshed: ${FX_RATES.fetchedAt.slice(0, 10)}`;
+    badge.hidden = false;
+  }
   renderFxList("");
   if (fxDetails[DEFAULT_CURRENCY]) selectCurrency(DEFAULT_CURRENCY);
 }

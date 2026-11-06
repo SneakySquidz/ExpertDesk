@@ -321,3 +321,14 @@ footer {
   font-size: 0.8rem;
   padding: 1rem 1.5rem 2rem;
 }
+
+.badge {
+  display: inline-block;
+  margin: 0.5rem 0 0;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.badge[hidden] { display: none; }

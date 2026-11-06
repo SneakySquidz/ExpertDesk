@@ -58,12 +58,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Compare the rates only; fetchedAt changes on every run.
-          if git diff -U0 -- fx-rates.js | grep '^[-+] ' | grep -qv fetchedAt; then
+          # fetchedAt changes on every successful run, so the "last refreshed"
+          # badge always shows the true date of the last successful fetch.
+          if ! git diff --quiet -- fx-rates.js; then
             git add fx-rates.js
             git commit -m "Update InforEuro exchange rates ($(date -u +%Y-%m))"
             git push
             gh workflow run deploy-pages.yml --ref main
           else
-            echo "No change — InforEuro rates already current."
+            echo "No change."
           fi
