@@ -5,7 +5,7 @@ const FX_RATES = {
   "url": "https://commission.europa.eu/funding-and-tenders/procedures-guidelines-tenders/information-contractors-and-beneficiaries/exchange-rate-inforeuro_en",
   "year": 2026,
   "month": 11,
-  "fetchedAt": "2026-11-03T13:56:15Z",
+  "fetchedAt": "2026-11-06T10:40:09Z",
   "rates": {
     "EUR": {
       "value": 1,
